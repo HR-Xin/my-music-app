@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>歌曲信息查询</title>
+    <style>
+        body { font-family: sans-serif; }
+        #results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>歌曲信息查询</h1>
+    <input type="file" id="fileInput" accept=".mp3, .wav, .ogg">
+    <div id="results"></div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const resultsDiv = document.getElementById('results');
+
+        fileInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const filename = file.name;
+                const parts = filename.split(" - ");
+                if (parts.length === 2) {
+                    const artist = parts[0];
+                    const song = parts[1].replace(/\.[^/.]+$/, "");
+                    resultsDiv.innerHTML = '<p>正在查询...</p>';
+                    try {
+                        const lyrics = await getLyrics(artist, song);
+                        const cover = await getCover(artist, song);
+                        displayResults(artist, song, lyrics, cover);
+                    } catch (error) {
+                        resultsDiv.innerHTML = `<p>查询失败：${error.message}</p>`;
+                    }
+                } else {
+                    resultsDiv.innerHTML = '<p>文件名格式不正确，请使用 "歌手名 - 歌曲名" 格式。</p>';
+                }
+            }
+        });
+
+        async function getLyrics(artist, song) {
+            const response = await fetch(`https://api.lrc.cx/lyrics?song=${encodeURIComponent(song)}&artist=${encodeURIComponent(artist)}`);
+            if (!response.ok) {
+                throw new Error('无法获取歌词');
+            }
+            const data = await response.json();
+            return data.lyric || '未找到歌词';
+        }
+
+        async function getCover(artist, song) {
+            const response = await fetch(`https://api.lrc.cx/cover?song=${encodeURIComponent(song)}&artist=${encodeURIComponent(artist)}`);
+            if (!response.ok) {
+                throw new Error('无法获取封面');
+            }
+            const data = await response.json();
+            return data.url || '';
+        }
+
+        function displayResults(artist, song, lyrics, cover) {
+            let html = `<h2>${song} - ${artist}</h2>`;
+            if (cover) {
+                html += `<img src="${cover}" alt="封面" style="max-width: 200px;">`;
+            }
+            html += `<pre>${lyrics}</pre>`;
+            resultsDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

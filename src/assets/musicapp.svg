@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet">
+    <!-- 背景层：渐变砂纸纹理 -->
+    <defs>
+        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f5f1e6" />
+            <stop offset="100%" stop-color="#e8dfc8" />
+        </linearGradient>
+        
+        <!-- 音乐符号图案 -->
+        <g id="music-note" transform="scale(0.8)">
+            <path d="M50,20 Q60,0 80,10 Q100,20 90,40 Q80,60 60,50 Q40,40 50,20 Z" fill="#7a6a5f" opacity="0.3"/>
+            <line x1="80" y1="10" x2="80" y2="90" stroke="#7a6a5f" stroke-width="3" opacity="0.3"/>
+        </g>
+        
+        <!-- 波浪线图案 -->
+        <path id="wave" d="M0,20 Q25,0 50,20 T100,20" stroke="#7a6a5f" stroke-width="1" fill="none" opacity="0.15"/>
+    </defs>
+    
+    <!-- 主背景 -->
+    <rect width="100%" height="100%" fill="url(#bgGradient)"/>
+    
+    <!-- 远山轮廓 -->
+    <path d="M-50,350 Q200,250 450,350 L450,500 L-50,500 Z" fill="#d8d0bd" opacity="0.6"/>
+    
+    <!-- 音乐元素：重复的波浪线 -->
+    <g transform="translate(0 300)">
+        <use href="#wave" x="0" y="0"/>
+        <use href="#wave" x="100" y="10"/>
+        <use href="#wave" x="200" y="5"/>
+        <use href="#wave" x="300" y="15"/>
+        <use href="#wave" x="400" y="0"/>
+        <use href="#wave" x="500" y="8"/>
+        <use href="#wave" x="600" y="12"/>
+        <use href="#wave" x="700" y="5"/>
+    </g>
+    
+    <!-- 散落的音乐符号 -->
+    <use href="#music-note" x="120" y="150" transform="rotate(15)"/>
+    <use href="#music-note" x="400" y="200" transform="rotate(-10) scale(0.6)"/>
+    <use href="#music-note" x="650" y="180" transform="rotate(5) scale(0.7)"/>
+    <use href="#music-note" x="250" y="100" transform="rotate(-15) scale(0.5)"/>
+    
+    <!-- 日式窗格元素 -->
+    <rect x="600" y="80" width="150" height="200" stroke="#7a6a5f" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <line x1="600" y1="130" x2="750" y2="130" stroke="#7a6a5f" stroke-width="1" opacity="0.4"/>
+    <line x1="600" y1="180" x2="750" y2="180" stroke="#7a6a5f" stroke-width="1" opacity="0.4"/>
+    <line x1="675" y1="80" x2="675" y2="280" stroke="#7a6a5f" stroke-width="1" opacity="0.4"/>
+    
+    <!-- 留白区域提示（安全边界） -->
+    <rect x="50" y="50" width="700" height="400" stroke="#7a6a5f" stroke-width="0.5" stroke-dasharray="5,5" fill="none" opacity="0.2"/>
+</svg>

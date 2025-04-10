@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue 音频播放器测试</title>
+    <style>
+        #player-container {
+            width: 100%;
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-if="showPlayer"
+            class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white p-4 rounded-lg shadow-lg flex items-center space-x-4">
+            <div class="flex-1">
+                <p class="text-lg font-semibold">{{ currentSong.title }}</p>
+                <p class="text-sm text-gray-600">{{ currentSong.artist }}</p>
+            </div>
+            <div id="player-container"></div>
+        </div>
+        <button @click="playSong">播放</button>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://g.alicdn.com/de/prismplayer/2.15.0/aliplayer-min.js"></script>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const showPlayer = ref(false);
+                const currentSong = ref({
+                    title: '测试音频',
+                    artist: '未知艺术家',
+                });
+                let playerInstance = null;
+                const vid = ref('您的视频ID'); // 修改：设置您的视频ID
+                const playAuth = ref('新生成的播放授权'); // 修改：设置新生成的播放授权
+
+                const loadAliPlayer = () => {
+                    return new Promise((resolve, reject) => {
+                        if (window.Aliplayer) {
+                            console.log('Aliplayer 已加载:', window.Aliplayer);
+                            resolve(window.Aliplayer);
+                        } else {
+                            const script = document.createElement('script');
+                            script.src = 'https://g.alicdn.com/de/prismplayer/2.15.0/aliplayer-min.js';
+                            script.onload = () => {
+                                console.log('Aliplayer 加载成功:', window.Aliplayer);
+                                resolve(window.Aliplayer);
+                            };
+                            script.onerror = (event) => {
+                                console.error('Aliplayer 加载失败:', event);
+                                reject(new Error('Aliplayer 加载失败'));
+                            };
+                            document.body.appendChild(script);
+                        }
+                    });
+                };
+
+                const playSong = async () => {
+                    showPlayer.value = true;
+
+                    if (playerInstance) {
+                        playerInstance.dispose();
+                        playerInstance = null;
+                    }
+                    await loadAliPlayer();
+                    playerInstance = new Aliplayer({
+                        id: 'player-container',
+                        vid: vid.value,
+                        playauth: playAuth.value,
+                        dataType: 'audio',
+                        width: '100%',
+                        height: '80px',
+                        skinLayout: [
+                            { name: 'Progress', align: 'blabs', x: 0, y: 0 },
+                            { name: 'Volume', align: 'tlabs', x: 0, y: 0 },
+                            { name: 'Play', align: 'tl', x: 15, y: 12 },
+                            { name: 'Time', align: 'tr', x: 12, y: 12 },
+                        ],
+                        autoplay: true,
+                    }, function (player) {
+                        console.log('播放器创建成功');
+                        player.on('error', function (error) {
+                            console.error('播放器错误:', error);
+                        });
+                    });
+                };
+
+                return {
+                    showPlayer,
+                    currentSong,
+                    playSong,
+                };
+            },
+        }).mount('#app');
+    </script>
+</body>
+</html>
