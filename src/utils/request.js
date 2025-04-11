@@ -34,7 +34,7 @@ function clearExpiredToken() {
 
 // 创建 axios 实例
 const instance = axios.create({
-  baseURL: 'http://localhost:2500/api',
+  baseURL: 'http://localhost:2222/api',
   timeout: 30000,
 });
 

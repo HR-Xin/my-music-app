@@ -343,7 +343,7 @@ const shareSongWithFriend = async (song) => {
       };
 
       // 重写 WebSocket 初始化，加入成功后执行回调
-      socket = new WebSocket('ws://localhost:2500/ws');
+      socket = new WebSocket('ws://localhost:2222/ws');
       socket.onopen = () => {
         console.log(`WebSocket (for sharing) 连接成功! 发送加入请求: ${newRoomId}`);
         isWsOpen.value = true;
@@ -485,8 +485,8 @@ const initializeWebSocket = (roomIdToJoin) => {
   }
 
 
-  console.log(`尝试连接 WebSocket: ws://localhost:2500/ws`);
-  socket = new WebSocket('ws://localhost:2500/ws');
+  console.log(`尝试连接 WebSocket: ws://localhost:2222/ws`);
+  socket = new WebSocket('ws://localhost:2222/ws');
 
   socket.onopen = () => {
     console.log('WebSocket 连接成功!');

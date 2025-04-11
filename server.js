@@ -1,6 +1,6 @@
 // 创建 WebSocket 连接
 //websocket前端nodejs监听的端口是3001,不能和后端服务2500端口冲突,ws使用3001端口,http使用2500端口
-const socket = new WebSocket('ws://localhost:2500/ws');//ws协议本地连接后端服务器
+const socket = new WebSocket('ws://localhost:2222/ws');//ws协议本地连接后端服务器
 
 
 socket.onopen = () => {
