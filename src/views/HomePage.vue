@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen w-full bg-[#f5f3ef] text-[#2e2d2a] relative overflow-y-auto">
     <div class="absolute inset-0 overflow-hidden">
-      <img src="../musicapp.svg" alt="背景" class="w-full h-full object-cover opacity-10">
+      <img src="../assets/musicapp.svg" alt="背景" class="w-full h-full object-cover opacity-10">
     </div>
 
     <nav class="absolute top-0 w-full flex justify-between items-center p-6 bg-[rgba(160,112,77,0.9)] z-10">
