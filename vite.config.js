@@ -23,6 +23,10 @@ export default defineConfig({
     hmr: true,
 
   },
+
+    base: '/', // 或 '/music/' 根据你部署路径定
+    // ...
+  
   build: {
     outDir: 'dist',
   },

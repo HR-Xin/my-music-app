@@ -907,7 +907,7 @@ watch(() => userStore.userInfo, (newUserInfo) => {
 }, { immediate: true });
 // 计算属性
 const goToProfile = computed(() => user.value.id ? `/profile/${user.value.id}` : '/login');
-const userAvatar = computed(() => user.value.avatar || 'src/assets/default-avatar.webp');
+const userAvatar = computed(() => user.value.avatar || '/default-avatar.webp');
 
 
 // **********************************音乐播放***************************************************
