@@ -18,7 +18,7 @@ export default defineConfig({
   /*,createHtmlPlugin({})*/],
   // tailwindcss()
   server: {
-    port: 3000, // 可根据需要选择其他端口
+    port: 3333, // 可根据需要选择其他端口
     open: true, // 启动后自动打开浏览器
     hmr: true,
 
